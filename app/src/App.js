@@ -9,7 +9,16 @@ import Home from './pages/home'
   
 function App() {
   return (
-    <Home></Home>
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center"
+      }}
+    >
+      <Home></Home>
+    </div>
+    
   );
 }
   
