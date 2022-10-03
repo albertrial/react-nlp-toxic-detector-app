@@ -9,14 +9,8 @@ import Home from './pages/home'
   
 function App() {
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center"
-      }}
-    >
-      <Home></Home>
+    <div className = "App">
+      <Home />
     </div>
     
   );
