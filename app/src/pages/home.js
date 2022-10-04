@@ -13,13 +13,40 @@ const WIDTH = 650;
   
 const Home = () => {
   const [lang, setLang] = React.useState('');
+  const [text, setText] = React.useState('');
 
-  const onChange = (event) => {
+  const handleLanguageChange = (event) => {
     setLang(event.target.value);
   }
 
-  const onClick = (event) => {
-    console.log(event);
+  const handleTextChange = (event) => {
+    setText(event.target.value);
+  }
+
+  async function getModel(lang) {
+    try {
+      const response = await axios.get("toxic_detection/models/"+lang);
+      console.log("Response");
+      console.log(response);
+      return response;
+    } catch (error) {
+        console.error(error);
+    }
+  }
+
+  async function detectToxicSpans(text, model) {
+    try {
+      const { data } = await axios.post("toxic_detection/detect/", text, model);
+      return data;
+    } catch (error) {
+        console.error(error);
+    }
+  }
+
+  const onClick = async (event) => {
+    console.log(lang + " " + text);
+    const model = getModel(lang);
+    let data = detectToxicSpans(text);
   }
 
   return (
@@ -43,7 +70,7 @@ const Home = () => {
               id="demo-simple-select"
               value={lang}
               label="Select language"
-              onChange={onChange}>
+              onChange={handleLanguageChange}>
               <MenuItem value={"en"}>English</MenuItem>
             </Select>
           </FormControl>
@@ -54,6 +81,7 @@ const Home = () => {
               id="input-text"
               minRows={20}
               maxRows={20}
+              onChange={handleTextChange}
               sx={{
                 backgroundColor: 'white'
               }}
