@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { makeStyles } from "@mui//styles";
+import axios from "axios";
 
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
@@ -10,36 +10,29 @@ import { Stack } from '@mui/system';
 import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 
 const WIDTH = 650;
-
-const useStyles = makeStyles((theme) => ({
-  setupForm: {
-    width : WIDTH*0.8
-  },
-  logo: {
-    width: WIDTH,
-    marginTop: 50,
-    marginBottom: 50
-  },
-  input: {
-    backgroundColor: 'white'
-  }
-}));
   
 const Home = () => {
-  const classes = useStyles();
-
   const [lang, setLang] = React.useState('');
 
-  const onChange = (event, child) => {
+  const onChange = (event) => {
     setLang(event.target.value);
+  }
+
+  const onClick = (event) => {
+    console.log(event);
   }
 
   return (
     <Box align="center">
-      <div style={{ textAlign: "center", width: "100%" }}>
-        <img alt="Bleeptox logo" src={logo} className={classes.logo} />
+      <div style={{textAlign: "center", 
+                   width: "100%" }} >
+        <img 
+          alt="Bleeptox logo" 
+          src={logo}
+          style={{width: WIDTH,
+                  marginTop: 50,
+                  marginBottom: 50}} />
       </div>
-      
       <Stack 
         width={WIDTH}
         spacing={2}>
@@ -61,13 +54,14 @@ const Home = () => {
               id="input-text"
               minRows={20}
               maxRows={20}
-              InputProps={{
-                className: classes.input,
+              sx={{
+                backgroundColor: 'white'
               }}
               />
           <Button
             variant="contained"
-            id="button">
+            id="button"
+            onClick={onClick}>
             Detect  
           </Button>
       </Stack>
