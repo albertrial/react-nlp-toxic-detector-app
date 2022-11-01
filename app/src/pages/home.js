@@ -2,6 +2,8 @@ import React from 'react';
 
 import axios from "axios";
 
+import { API_URL } from '../constants';
+
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Box from "@mui/material/Box";
@@ -14,6 +16,7 @@ const WIDTH = 650;
 const Home = () => {
   const [lang, setLang] = React.useState('');
   const [text, setText] = React.useState('');
+  const [bleepedText, setBleepedText] = React.useState('')
 
   const handleLanguageChange = (event) => {
     setLang(event.target.value);
@@ -34,19 +37,28 @@ const Home = () => {
     }
   }
 
-  async function detectToxicSpans(text, model) {
+  async function detectToxicSpans(origText) {
     try {
-      const { data } = await axios.post("toxic_detection/detect/", text, model);
-      return data;
+      const item = {text: origText}
+      const { response } = axios.post(API_URL+"detect", item)
+                          .then((response) => {
+                            console.log(response);
+                            console.log(response.data);
+                            setBleepedText(response.data);
+                          })
+                          .catch(err => {
+                            console.log(err);
+                          });
+      return response;      
     } catch (error) {
         console.error(error);
     }
   }
 
-  const onClick = async (event) => {
+  const handleSubmit = async (event) => {
     console.log(lang + " " + text);
-    const model = getModel(lang);
-    let data = detectToxicSpans(text);
+    //const model = getModel(lang);
+    detectToxicSpans(text);
   }
 
   return (
@@ -89,7 +101,7 @@ const Home = () => {
           <Button
             variant="contained"
             id="button"
-            onClick={onClick}>
+            onClick={handleSubmit}>
             Detect  
           </Button>
       </Stack>
