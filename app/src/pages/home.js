@@ -48,8 +48,7 @@ const Home = () => {
                           })
                           .catch(err => {
                             console.log(err);
-                          });
-      return response;      
+                          });      
     } catch (error) {
         console.error(error);
     }
