@@ -16,7 +16,6 @@ const WIDTH = 650;
 const Home = () => {
   const [lang, setLang] = React.useState('');
   const [text, setText] = React.useState('');
-  const [bleepedText, setBleepedText] = React.useState('')
 
   const handleLanguageChange = (event) => {
     setLang(event.target.value);
@@ -44,7 +43,7 @@ const Home = () => {
                           .then((response) => {
                             console.log(response);
                             console.log(response.data);
-                            setBleepedText(response.data);
+                            setText(response.data);
                           })
                           .catch(err => {
                             console.log(err);
@@ -89,6 +88,7 @@ const Home = () => {
               helperText="Please enter the text you want to censure"
               variant="outlined"
               multiline
+              value={text}
               id="input-text"
               minRows={20}
               maxRows={20}
