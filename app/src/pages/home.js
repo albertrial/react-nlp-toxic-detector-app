@@ -7,15 +7,17 @@ import { API_URL } from '../constants';
 import TextField from '@mui/material/TextField';
 import IconButton from '@mui/material/IconButton';
 import SendIcon from '@mui/icons-material/SendRounded';
+import ThumbDownIcon from '@mui/icons-material/ThumbDownRounded';
+import ThumbUpIcon from '@mui/icons-material/ThumbUpRounded';
 import Box from "@mui/material/Box";
 import logo from "../assets/images/logo.png";
-import { FormControl, InputLabel, MenuItem, Select, List, ListItem, ListItemText, Divider } from '@mui/material';
+import { FormControl, InputLabel, MenuItem, Select, List, ListItem, ListItemText, Divider, Grid } from '@mui/material';
 
 const WIDTH = 800;
   
 const Home = () => {
   const [lang, setLang] = React.useState('');
-  const [items, setItems] = React.useState([]);
+  const [items, setItems] = React.useState(['hasmaglere', 'hasmaglere']);
   const [text, setText] = React.useState('');
 
   const handleLanguageChange = (event) => {
@@ -72,6 +74,14 @@ const Home = () => {
     }
   }
 
+  const handleApprove = async (event) => {
+
+  }
+
+  const handleReject = async (event) => {
+
+  }
+
   return (
     <Box align="center">
       <img 
@@ -84,12 +94,36 @@ const Home = () => {
           flex-direction="column"
           display="flex"
           height="100%"
-          align-items="center">
+          alignItems="center">
           {items.map((item, index) => (
-            <Box width="100%" display="block" key={index} style={{ backgroundColor: index%2 === 0 ? 'white' : '#F7F7F8' }}>
+            <Box 
+              width="100%" 
+              display="block" 
+              key={index} 
+              style={{ backgroundColor: index%2 === 0 ? 'white' : '#F7F7F8' }}>
               <ListItem display="flex" key={index} style={{maxWidth: WIDTH}}>
-                <ListItemText
-                  primary={item} style= {{ wordWrap: "break-word" }}/>
+              <Grid container>
+                <Grid item xs={10}>
+                  <ListItemText
+                      primary={item} style= {{wordWrap: "break-word" }}/>
+                </Grid>
+                <Grid item xs={2}
+                  justify="flex-end"
+                  alignItems="center">
+                  <IconButton 
+                        id="approve"
+                        variant="contained"
+                        onClick={handleApprove}>
+                        <ThumbUpIcon fontSize='small'/>
+                  </IconButton>
+                  <IconButton
+                      id="reject"
+                      variant="contained" 
+                      onClick={handleReject}>
+                      <ThumbDownIcon fontSize='small'/>
+                  </IconButton>
+                </Grid>
+              </Grid>
               </ListItem>
               <Divider />
             </Box>
@@ -118,7 +152,7 @@ const Home = () => {
                     <IconButton 
                       id="send-button" 
                       onClick={handleSubmit}>
-                      <SendIcon />
+                      <SendIcon fontSize='small'/>
                     </IconButton> 
                     }}
         />
