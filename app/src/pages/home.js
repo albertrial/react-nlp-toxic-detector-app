@@ -5,16 +5,18 @@ import axios from "axios";
 import { API_URL } from '../constants';
 
 import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
+import IconButton from '@mui/material/IconButton';
+import SendIcon from '@mui/icons-material/SendRounded';
 import Box from "@mui/material/Box";
 import logo from "../assets/images/logo.png";
 import { Stack } from '@mui/system';
-import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
+import { FormControl, InputLabel, MenuItem, Select, List, ListItem, ListItemText, Divider } from '@mui/material';
 
-const WIDTH = 650;
+const WIDTH = 800;
   
 const Home = () => {
   const [lang, setLang] = React.useState('');
+  const [items, setItems] = React.useState([]);
   const [text, setText] = React.useState('');
 
   const handleLanguageChange = (event) => {
@@ -38,12 +40,13 @@ const Home = () => {
 
   async function detectToxicSpans(origText) {
     try {
+      setItems([...items, origText])
       const item = {text: origText}
       const { response } = axios.post(API_URL+"detect", item)
                           .then((response) => {
                             console.log(response);
                             console.log(response.data);
-                            setText(response.data);
+                            setItems([...items, origText, response.data]);
                           })
                           .catch(err => {
                             console.log(err);
@@ -57,6 +60,7 @@ const Home = () => {
     console.log(lang + " " + text);
     //const model = getModel(lang);
     detectToxicSpans(text);
+    setText('');
   }
 
   return (
@@ -70,11 +74,21 @@ const Home = () => {
                   marginTop: 50,
                   marginBottom: 50}} />
       </div>
+      <Stack
+        width = {WIDTH}>
+      <List>
+        {items.map((item, index) => (
+          <ListItem key={index} style={{ backgroundColor: index%2 === 0 ? 'white' : '#F7F7F8' }}>
+            <ListItemText primary={item} />
+          </ListItem>
+        ))}
+      </List>
+      </Stack>
       <Stack 
         width={WIDTH}
         spacing={2}>
           <FormControl fullWidth>
-            <InputLabel id="demo-simple-select-label">Select language</InputLabel>
+            {/* <InputLabel id="demo-simple-select-label">Select language</InputLabel>
             <Select
               labelId="demo-simple-select-label"
               id="demo-simple-select"
@@ -82,27 +96,25 @@ const Home = () => {
               label="Select language"
               onChange={handleLanguageChange}>
               <MenuItem value={"en"}>English</MenuItem>
-            </Select>
+            </Select> */}
           </FormControl>
           <TextField
-              helperText="Please enter the text you want to censure"
               variant="outlined"
               multiline
               value={text}
               id="input-text"
-              minRows={20}
+              minRows={1}
               maxRows={20}
               onChange={handleTextChange}
-              sx={{
-                backgroundColor: 'white'
-              }}
+              elevation={3}
+              InputProps={{endAdornment:
+                          <IconButton 
+                            id="send-button" 
+                            onClick={handleSubmit}>
+                            <SendIcon />
+                          </IconButton> 
+                        }}
               />
-          <Button
-            variant="contained"
-            id="button"
-            onClick={handleSubmit}>
-            Detect  
-          </Button>
       </Stack>
     </Box>
   );
