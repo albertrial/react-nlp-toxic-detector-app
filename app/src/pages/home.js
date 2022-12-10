@@ -17,7 +17,7 @@ const WIDTH = 800;
   
 const Home = () => {
   const [lang, setLang] = React.useState('');
-  const [items, setItems] = React.useState(['hasmaglere', 'hasmaglere']);
+  const [items, setItems] = React.useState([]);
   const [text, setText] = React.useState('');
 
   const handleLanguageChange = (event) => {
