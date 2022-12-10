@@ -9,7 +9,6 @@ import IconButton from '@mui/material/IconButton';
 import SendIcon from '@mui/icons-material/SendRounded';
 import Box from "@mui/material/Box";
 import logo from "../assets/images/logo.png";
-import { Stack } from '@mui/system';
 import { FormControl, InputLabel, MenuItem, Select, List, ListItem, ListItemText, Divider } from '@mui/material';
 
 const WIDTH = 800;
@@ -56,66 +55,73 @@ const Home = () => {
     }
   }
 
-  const handleSubmit = async (event) => {
+  function submit() {
     console.log(lang + " " + text);
     //const model = getModel(lang);
     detectToxicSpans(text);
     setText('');
   }
 
+  const handleSubmit = async (event) => {
+    submit();
+  }
+
+  const handleKeyDown = async (event) => {
+    if (event.key === "Enter") {
+      submit();
+    }
+  }
+
   return (
     <Box align="center">
-      <div style={{textAlign: "center", 
-                   width: "100%" }} >
-        <img 
+      <img 
           alt="Bleeptox logo" 
           src={logo}
-          style={{width: WIDTH,
+          style={{width: 400,
                   marginTop: 50,
                   marginBottom: 50}} />
-      </div>
-      <Stack
-        width = {WIDTH}>
-      <List>
-        {items.map((item, index) => (
-          <ListItem key={index} style={{ backgroundColor: index%2 === 0 ? 'white' : '#F7F7F8' }}>
-            <ListItemText primary={item} />
-          </ListItem>
-        ))}
-      </List>
-      </Stack>
-      <Stack 
-        width={WIDTH}
-        spacing={2}>
-          <FormControl fullWidth>
-            {/* <InputLabel id="demo-simple-select-label">Select language</InputLabel>
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              value={lang}
-              label="Select language"
-              onChange={handleLanguageChange}>
-              <MenuItem value={"en"}>English</MenuItem>
-            </Select> */}
-          </FormControl>
-          <TextField
-              variant="outlined"
-              multiline
-              value={text}
-              id="input-text"
-              minRows={1}
-              maxRows={20}
-              onChange={handleTextChange}
-              elevation={3}
-              InputProps={{endAdornment:
-                          <IconButton 
-                            id="send-button" 
-                            onClick={handleSubmit}>
-                            <SendIcon />
-                          </IconButton> 
-                        }}
-              />
-      </Stack>
+        <List
+          flex-direction="column"
+          display="flex"
+          height="100%"
+          align-items="center">
+          {items.map((item, index) => (
+            <Box width="100%" display="block" key={index} style={{ backgroundColor: index%2 === 0 ? 'white' : '#F7F7F8' }}>
+              <ListItem display="flex" key={index} style={{maxWidth: WIDTH}}>
+                <ListItemText
+                  primary={item} style= {{ wordWrap: "break-word" }}/>
+              </ListItem>
+              <Divider />
+            </Box>
+          ))}
+        </List>
+      
+      <TextField
+        variant="outlined"
+        value={text}
+        id="input-text"
+        label="Type something here"
+        minRows={1}
+        maxRows={20}
+        onChange={handleTextChange}
+        onKeyDown={handleKeyDown}
+        elevation={3}
+        style={{
+          maxWidth: WIDTH,
+          position: 'fixed',
+          bottom: 20,
+          left: 0,
+          right: 0,
+          margin: 'auto'
+        }}
+        InputProps={{endAdornment:
+                    <IconButton 
+                      id="send-button" 
+                      onClick={handleSubmit}>
+                      <SendIcon />
+                    </IconButton> 
+                    }}
+        />
     </Box>
   );
 };
