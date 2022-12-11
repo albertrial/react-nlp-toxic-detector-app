@@ -109,15 +109,15 @@ class MultiDepthDistilBertModel(LightningModule):
                 'original_spans': original_spans}
 
     def test_epoch_end(self, outputs):
-        predictec_spans = []
+        predicted_spans = []
         original_spans = torch.LongTensor().to(self.device)
         # Accumulate data from all batches
         for batch in outputs:
-            predictec_spans.extend(batch['predicted_spans'])
+            predicted_spans.extend(batch['predicted_spans'])
             original_spans = torch.cat([original_spans, batch['original_spans']], dim=0)
 
         # Store information
-        self.predictions = {'predicted_spans': predictec_spans,
+        self.predictions = {'predicted_spans': predicted_spans,
                             'original_spans': original_spans}
 
     def configure_optimizers(self):

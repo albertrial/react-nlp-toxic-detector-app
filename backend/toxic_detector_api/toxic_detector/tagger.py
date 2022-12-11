@@ -61,20 +61,5 @@ def tag(text, lang):
 
     # ########## G E N E R A T E   O U T P U T ##########
     predicted_spans = predicted_spans[0]
-    tagged_text = ''
-    inside = False
-    for i, char in enumerate(text):
-        if not inside and i in predicted_spans:
-            tagged_text += '['
-            inside = True
-        elif inside and i not in predicted_spans:
-            tagged_text += ']'
-            inside = False
-        tagged_text += char
-    if inside:
-        tagged_text += ']'
 
-    print(f"Input text  --> {text}")
-    print(f"Tagged text --> {tagged_text}")
-
-    return tagged_text
+    return predicted_spans
