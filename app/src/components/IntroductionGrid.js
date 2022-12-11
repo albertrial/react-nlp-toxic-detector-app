@@ -1,27 +1,16 @@
 import React from 'react';
 
-import { styled } from '@mui/material/styles';
 import Grid from '@mui/material/Grid';
-import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
+import { Divider } from '@mui/material';
 
 import PsychologyIcon from '@mui/icons-material/PsychologyRounded';
 import WarningRoundedIcon from '@mui/icons-material/WarningRounded';
 
-import image1 from "../assets/images/logo.png";
-import { Divider } from '@mui/material';
 
-const Item = styled(Paper)(({ theme }) => ({
-    backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-    ...theme.typography.body2,
-    padding: theme.spacing(1),
-    textAlign: 'center',
-    color: theme.palette.text.secondary,
-  }));
 
 const IntroductionGrid = () => {
     return (
