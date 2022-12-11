@@ -11,7 +11,7 @@ import ThumbDownIcon from '@mui/icons-material/ThumbDownRounded';
 import ThumbUpIcon from '@mui/icons-material/ThumbUpRounded';
 import Box from "@mui/material/Box";
 import logo from "../assets/images/logo.png";
-import { List, ListItem, ListItemText, Divider, Grid, Typography } from '@mui/material';
+import { List, ListItem, Divider, Grid } from '@mui/material';
 import { PulseLoader } from 'react-spinners';
 import IntroductionGrid from '../components/IntroductionGrid';
 import DOMPurify from 'dompurify'
@@ -31,7 +31,7 @@ function highlightText(text, spans) {
     else if (inside && !spans.includes(i)) {
       highlightedText += "</span>";
       inside = false;
-    } 
+    }
     highlightedText += char;
   }
   if (inside) {
@@ -96,14 +96,16 @@ const Home = () => {
 
   return (
     <Box align="center">
-      <img
-        alt="Bleeptox logo"
-        src={logo}
-        style={{
-          width: 350,
-          marginTop: 20,
-          marginBottom: 20
-        }} />
+      <a href="/">
+        <img
+          alt="Bleeptox logo"
+          src={logo}
+          style={{
+            width: 350,
+            marginTop: 20,
+            marginBottom: 20
+          }} />
+      </a>
       {isIntroShown ? (<IntroductionGrid id="introduction-grid" />) : (<div />)}
       <List
         id="text-list"
@@ -125,9 +127,9 @@ const Home = () => {
               <Grid container>
                 <Grid item xs={10}>
                   <ListItem>
-                    <div className="content" dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(item)}}></div>
+                    <div className="content" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(item) }}></div>
                   </ListItem>
-                    {/* primary={<div>Hola</div>} style={{ wordWrap: "break-word" }} /> */}
+                  {/* primary={<div>Hola</div>} style={{ wordWrap: "break-word" }} /> */}
                 </Grid>
                 <Grid item xs={2}
                   justify="flex-end"
