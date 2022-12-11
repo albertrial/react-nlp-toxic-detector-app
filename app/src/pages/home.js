@@ -14,6 +14,7 @@ import logo from "../assets/images/logo.png";
 import { List, ListItem, ListItemText, Divider, Grid, Typography } from '@mui/material';
 import { PulseLoader } from 'react-spinners';
 import IntroductionGrid from '../components/IntroductionGrid';
+import DOMPurify from 'dompurify'
 
 const WIDTH = 800
 
@@ -124,7 +125,7 @@ const Home = () => {
               <Grid container>
                 <Grid item xs={10}>
                   <ListItem>
-                    <div className="content" dangerouslySetInnerHTML={{__html: item}}></div>
+                    <div className="content" dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(item)}}></div>
                   </ListItem>
                     {/* primary={<div>Hola</div>} style={{ wordWrap: "break-word" }} /> */}
                 </Grid>
