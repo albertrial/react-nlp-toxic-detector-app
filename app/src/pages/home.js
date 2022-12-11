@@ -45,14 +45,13 @@ const Home = () => {
 
   async function detectToxicSpans(origText) {
     try {
-      setItems([...items, origText])
       const item = { text: origText }
       const { response } = axios.post(API_URL + "detect", item)
         .then((response) => {
           console.log(response);
           console.log(response.data);
           setLoading(false);
-          setItems([...items, origText, response.data]);
+          setItems([...items, response.data]);
         })
         .catch(err => {
           console.log(err);
@@ -150,7 +149,7 @@ const Home = () => {
           loading={isLoading} 
         />
       </List>
-      
+
       <TextField
         id="input-text"
         variant="outlined"
