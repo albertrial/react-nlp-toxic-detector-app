@@ -54,7 +54,7 @@ const IntroductionGrid = () => {
                             <Divider />
                             <Typography variant="body1" textAlign="justify"  marginBottom={1}  marginTop={1}>
                             Able to detect those words that have been written in an ingenious way to avoid simple 
-                            and naïve techniques (e.g. $tup1d, 1d10t, etc.). 
+                            and naïve techniques (e.g. $tup1d, 1d1ot, etc.). 
                             </Typography>
                             <Divider />
                             <Typography variant="body1" textAlign="justify"  marginTop={1}>

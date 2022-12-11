@@ -11,11 +11,34 @@ import ThumbDownIcon from '@mui/icons-material/ThumbDownRounded';
 import ThumbUpIcon from '@mui/icons-material/ThumbUpRounded';
 import Box from "@mui/material/Box";
 import logo from "../assets/images/logo.png";
-import { List, ListItem, ListItemText, Divider, Grid } from '@mui/material';
+import { List, ListItem, ListItemText, Divider, Grid, Typography } from '@mui/material';
 import { PulseLoader } from 'react-spinners';
 import IntroductionGrid from '../components/IntroductionGrid';
 
-const WIDTH = 800;
+const WIDTH = 800
+
+function highlightText(text, spans) {
+  let highlightedText = "";
+  let inside = false;
+
+  for (let i = 0; i < text.length; i++) {
+    const char = text[i];
+    if (!inside && spans.includes(i)) {
+      highlightedText += "<span style='color:red;font-weight:bold;'>";
+      inside = true;
+    }
+    else if (inside && !spans.includes(i)) {
+      highlightedText += "</span>";
+      inside = false;
+    } 
+    highlightedText += char;
+  }
+  if (inside) {
+    highlightedText += "</span>";
+  }
+  console.log(highlightedText);
+  return highlightedText;
+}
 
 const Home = () => {
   const [items, setItems] = React.useState([]);
@@ -34,7 +57,8 @@ const Home = () => {
         .then((response) => {
           console.log(response.data);
           setLoading(false);
-          setItems([...items, response.data]);
+          var highlightedText = highlightText(origText, response.data)
+          setItems([...items, highlightedText]);
         })
         .catch(err => {
           console.log(err);
@@ -99,8 +123,10 @@ const Home = () => {
             <ListItem display="flex" key={index} style={{ maxWidth: WIDTH }}>
               <Grid container>
                 <Grid item xs={10}>
-                  <ListItemText
-                    primary={item} style={{ wordWrap: "break-word" }} />
+                  <ListItem>
+                    <div className="content" dangerouslySetInnerHTML={{__html: item}}></div>
+                  </ListItem>
+                    {/* primary={<div>Hola</div>} style={{ wordWrap: "break-word" }} /> */}
                 </Grid>
                 <Grid item xs={2}
                   justify="flex-end"
