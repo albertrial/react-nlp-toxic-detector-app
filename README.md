@@ -40,13 +40,15 @@ npm install
 ```
 cd react-nlp-toxic-detector-app/backend/
 ```
-5. Create and activate a virtual environment:
+5. Create folders `models/en/` and place there the torch weights. Weights can be downloaded in the following [link][weights_url]. You can either download our standalone best model inside the `best` folder, or download the checkpoints inside the `ensemble` folder to constitute an ensemble and be more accurate.
+
+6. Create and activate a virtual environment:
 ```
 python -m venv env
 source env/bin/activate # for Unix-based systems
 env\Scripts\activate # for Windows
 ```
-6. Install the Python dependencies:
+7. Install the Python dependencies:
 ```
 pip install -r requirements.txt
 ```
@@ -77,4 +79,5 @@ env\Scripts\activate # for Windows
 python manage.py runserver
 ```
 
+[weights_url]: https://www.dropbox.com/sh/92xtl13paxmwk1a/AACqeiYbhq7xCgHTOYjVYITca?dl=0
 
